@@ -1,16 +1,17 @@
 # Building torchaudio packages for release
 
- ## Anaconda packages
+## Anaconda packages
 
- ### Linux
+### Linux
 
- ```bash
+```bash
 docker run -it --ipc=host --rm -v $(pwd):/remote soumith/conda-cuda bash
 cd remote
 PYTHON_VERSION=3.7 packaging/build_conda.sh
 ```
 
 To install bz2,
+
 ```bash
 cd /opt/conda/conda-bld/linux-64/
 # install dependencies
@@ -21,18 +22,20 @@ conda install /opt/conda/conda-bld/linux-64/torchaudio-cpu-0.2.0-py27_1.tar.bz2
 ```
 
 To upload bz2,
+
 ```bash
 anaconda upload -u pytorch /opt/conda/conda-bld/linux-64/torchaudio*.bz2
 ```
 
- ### OSX
+### OSX
 
- ```bash
+```bash
 # create a fresh anaconda environment / install and activate it
 PYTHON_VERSION=3.7 packaging/build_conda.sh
 ```
 
 To install bz2,
+
 ```bash
 cd /Users/jamarshon/anaconda3/conda-bld/osx-64/
 # activate conda env (e.g
@@ -47,40 +50,50 @@ conda install /Users/jamarshon/anaconda3/conda-bld/osx-64/torchaudio-0.2.0-py27_
 ```
 
 To upload bz2,
+
 ```bash
 anaconda upload -u pytorch /Users/jamarshon/anaconda3/conda-bld/osx-64/torchaudio*.bz2
 ```
 
- ## Wheels
+## Wheels
 
- ### Linux
+### Linux
 
- ```bash
+```bash
 nvidia-docker run -it --ipc=host --rm -v $(pwd):/remote soumith/manylinux-cuda90:latest bash
 cd remote
 PYTHON_VERSION=3.7 packaging/build_wheel.sh
 ```
 
 To install wheels,
+
 ```bash
 cd ../cpu
 /opt/python/cp35-cp35m/bin/pip install torchaudio-0.2-cp35-cp35m-linux_x86_64.whl
 ```
 
 To upload wheels,
+
 ```bash
 cd ../cpu
 /opt/python/cp35-cp35m/bin/pip install twine
 /opt/python/cp35-cp35m/bin/twine upload *.whl
 ```
 
- ### OSX
+### Jetson Xavier (Ubuntu aarach64)
 
- ```bash
+Following the [NVCC compile flag article](https://arnon.dk/tag/nvcc-flags/) the `-gencode=arch=compute_62,code=sm_62`
+have been added for the Tegra (Jetson) Pascal architecture GPUs. This can be set by providing `CU_VERSION=cu102-tegra`
+meaning the Cuda 10.2 version that ships with Jetson Jetpack.
+
+### OSX
+
+```bash
 PYTHON_VERSION=3.7 packaging/build_wheel.sh
 ```
 
 To install wheels,
+
 ```bash
 cd ~/torchaudio_wheels
 conda activate /Users/jamarshon/minconda_wheel_env_tmp/envs/env2.7
@@ -88,6 +101,7 @@ pip install torchaudio-0.2-cp27-cp27m-macosx_10_6_x86_64.whl
 ```
 
 To upload wheels,
+
 ```bash
 pip install twine
 cd ~/torchaudio_wheels
