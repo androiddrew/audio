@@ -52,6 +52,12 @@ setup_cuda() {
 
   # Now work out the CUDA settings
   case "$CU_VERSION" in
+    cu102-jetson)
+      export CUDA_HOME=/usr/local/cuda-10.2/
+      export FORCE_CUDA=1
+      export NVCC_FLAGS="-gencode=arch=compute_62,code=sm_62"
+      export WHEEL_DIR="gpu/"
+      ;;
     cu100)
       export CUDA_HOME=/usr/local/cuda-10.0/
       export FORCE_CUDA=1

@@ -86,6 +86,12 @@ Following the [NVCC compile flag article](https://arnon.dk/tag/nvcc-flags/) the 
 have been added for the Tegra (Jetson) Pascal architecture GPUs. This can be set by providing `CU_VERSION=cu102-tegra`
 meaning the Cuda 10.2 version that ships with Jetson Jetpack.
 
+For python3.8 on the Jetson Xavier use
+
+```bash
+CU_VERSION=cu102-jetson build_wheel.sh
+```
+
 ### OSX
 
 ```bash
